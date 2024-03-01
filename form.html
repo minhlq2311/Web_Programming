@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Đăng Nhập và Đăng Ký</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .error-message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trang Đăng Nhập và Đăng Ký</h1>
+    </header>
+
+    <main>
+        <div id="login-form">
+            <h2>Đăng Nhập</h2>
+            <form onsubmit="return validateLogin()">
+                <label for="login-username">Tên đăng nhập:</label>
+                <input type="text" id="login-username" required>
+
+                <label for="login-password">Mật khẩu:</label>
+                <input type="password" id="login-password" required>
+
+                <button type="submit">Đăng Nhập</button>
+            </form>
+        </div>
+
+        <div id="register-form" style="display: none;">
+            <h2>Đăng Ký</h2>
+            <form onsubmit="return validateRegister()">
+                <label for="register-username">Tên người dùng:</label>
+                <input type="text" id="register-username" required>
+
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" required>
+
+                <label for="register-password">Mật khẩu:</label>
+                <input type="password" id="register-password" required>
+
+                <label for="confirm-password">Xác nhận mật khẩu:</label>
+                <input type="password" id="confirm-password" required>
+
+                <button type="submit">Đăng Ký</button>
+            </form>
+        </div>
+
+        <p id="switch-form-text">Chưa có tài khoản? <a href="#" onclick="switchForm()">Đăng ký ngay</a>.</p>
+    </main>
+
+    <script>
+        function validateLogin() {
+            // Thực hiện kiểm tra tính hợp lệ của thông tin đăng nhập
+            var username = document.getElementById('login-username').value;
+            var password = document.getElementById('login-password').value;
+
+            // Demo: Kiểm tra đơn giản nếu tên đăng nhập và mật khẩu không trống
+            if (username.trim() === '' || password.trim() === '') {
+                document.getElementById('login-error').innerText = 'Vui lòng nhập đầy đủ thông tin.';
+                return false;
+            }
+
+            // Xử lý đăng nhập (chưa cần gọi đến backend)
+
+            return true;
+        }
+
+        function validateRegister() {
+            // Thực hiện kiểm tra tính hợp lệ của thông tin đăng ký
+            var username = document.getElementById('register-username').value;
+            var email = document.getElementById('register-email').value;
+            var password = document.getElementById('register-password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+
+            // Demo: Kiểm tra đơn giản nếu các trường không trống và mật khẩu khớp nhau
+            if (username.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+                document.getElementById('register-error').innerText = 'Vui lòng nhập đầy đủ thông tin.';
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('register-error').innerText = 'Mật khẩu xác nhận không khớp.';
+                return false;
+            }
+
+            // Xử lý đăng ký (chưa cần gọi đến backend)
+
+            return true;
+        }
+
+        function switchForm() {
+            var loginForm = document.getElementById('login-form');
+            var registerForm = document.getElementById('register-form');
+            var switchText = document.getElementById('switch-form-text');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                switchText.innerHTML = 'Chưa có tài khoản? <a href="#" onclick="switchForm()">Đăng ký ngay</a>.';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                switchText.innerHTML = 'Đã có tài khoản? <a href="#" onclick="switchForm()">Đăng nhập ngay</a>.';
+            }
+        }
+    </script>
+</body>
+</html>

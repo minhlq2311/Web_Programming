@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chính - Hệ thống Thi trắc nghiệm trực tuyến</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .exam-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .exam-item {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .search-filter {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        select {
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trang Chính - Hệ thống Thi trắc nghiệm trực tuyến</h1>
+    </header>
+
+    <main>
+        <div class="search-filter">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên">
+            <select id="statusFilter">
+                <option value="">Tất cả trạng thái</option>
+                <option value="free">Có thể truy cập tự do</option>
+                <option value="scheduled">Yêu cầu thời gian cụ thể</option>
+            </select>
+            <button onclick="filterExams()">Lọc</button>
+        </div>
+
+        <ul class="exam-list">
+            <li class="exam-item">
+                <h2>Luyện tập</h2>
+                <p>Trạng thái: Có thể truy cập tự do</p>
+                <button onclick="startExam('Luyện tập')">Bắt đầu làm</button>
+            </li>
+            <li class="exam-item">
+                <h2>Giữa kỳ</h2>
+                <p>Trạng thái: Yêu cầu thời gian cụ thể</p>
+                <button onclick="startExam('Giữa kỳ')">Bắt đầu làm</button>
+            </li>
+            <!-- Thêm các kỳ thi khác nếu cần -->
+        </ul>
+    </main>
+
+    <script>
+        function filterExams() {
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var statusFilter = document.getElementById('statusFilter').value.toLowerCase();
+
+            var examItems = document.querySelectorAll('.exam-item');
+
+            examItems.forEach(function (item) {
+                var examName = item.querySelector('h2').innerText.toLowerCase();
+                var examStatus = item.querySelector('p').innerText.toLowerCase();
+
+                var nameMatch = examName.includes(searchInput);
+                var statusMatch = statusFilter === '' || examStatus.includes(statusFilter);
+
+                if (nameMatch && statusMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function startExam(examName) {
+            // Gọi đến backend để bắt đầu làm bài thi
+            alert('Bắt đầu làm bài thi: ' + examName);
+        }
+    </script>
+</body>
+</html>
