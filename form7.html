@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo/Chỉnh sửa Kỳ thi</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tạo/Chỉnh sửa Kỳ thi</h1>
+    </header>
+
+    <main>
+        <form>
+            <label for="exam-name">Tên kỳ thi:</label>
+            <input type="text" id="exam-name" required>
+
+            <label for="exam-description">Mô tả:</label>
+            <textarea id="exam-description" rows="4" required></textarea>
+
+            <label for="exam-type">Loại kỳ thi:</label>
+            <select id="exam-type" required>
+                <option value="free">Tự do</option>
+                <option value="timed">Thời gian cụ thể</option>
+            </select>
+
+            <h2>Danh sách câu hỏi</h2>
+
+            <!-- Dữ liệu mẫu, bạn cần thay thế bằng dữ liệu thực tế -->
+            <div class="question">
+                <label for="question-text">Câu hỏi:</label>
+                <textarea class="question-text" rows="2" required></textarea>
+
+                <label for="answer-options">Câu trả lời:</label>
+                <textarea class="answer-options" rows="3" required></textarea>
+
+                <button type="button" onclick="removeQuestion(this)">Xóa câu hỏi</button>
+            </div>
+
+            <button type="button" onclick="addQuestion()">Thêm câu hỏi</button>
+
+            <button type="submit">Lưu kỳ thi</button>
+        </form>
+    </main>
+
+    <script>
+        function addQuestion() {
+            // Thêm mới một câu hỏi vào form
+            var questionContainer = document.createElement('div');
+            questionContainer.classList.add('question');
+
+            var questionText = document.createElement('textarea');
+            questionText.classList.add('question-text');
+            questionText.rows = 2;
+            questionText.required = true;
+
+            var answerOptions = document.createElement('textarea');
+            answerOptions.classList.add('answer-options');
+            answerOptions.rows = 3;
+            answerOptions.required = true;
+
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Xóa câu hỏi';
+            removeButton.onclick = function() {
+                removeQuestion(this);
+            };
+
+            questionContainer.appendChild(document.createElement('hr'));
+            questionContainer.appendChild(document.createElement('br'));
+            questionContainer.appendChild(document.createElement('hr'));
+            questionContainer.appendChild(document.createElement('br'));
+            questionContainer.appendChild(questionText);
+            questionContainer.appendChild(document.createElement('br'));
+            questionContainer.appendChild(document.createElement('br'));
+            questionContainer.appendChild(answerOptions);
+            questionContainer.appendChild(document.createElement('br'));
+            questionContainer.appendChild(removeButton);
+
+            document.querySelector('form').appendChild(questionContainer);
+        }
+
+        function removeQuestion(button) {
+            // Xóa câu hỏi khỏi form
+            var questionContainer = button.parentElement;
+            questionContainer.parentElement.removeChild(questionContainer);
+        }
+    </script>
+</body>
+</html>

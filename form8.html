@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Thống kê</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trang Thống kê</h1>
+    </header>
+
+    <main>
+        <h2>Bảng thống kê tổng hợp kết quả</h2>
+
+        <!-- Dữ liệu mẫu, bạn cần thay thế bằng dữ liệu thực tế -->
+        <table id="resultTable">
+            <tr>
+                <th>Kỳ thi</th>
+                <th>Tổng số lần tham gia</th>
+                <th>Tỷ lệ hoàn thành</th>
+                <th>Điểm trung bình</th>
+            </tr>
+            <tr>
+                <td>Kỳ thi A</td>
+                <td>100</td>
+                <td>85%</td>
+                <td>7.5</td>
+            </tr>
+            <tr>
+                <td>Kỳ thi B</td>
+                <td>120</td>
+                <td>90%</td>
+                <td>8.0</td>
+            </tr>
+        </table>
+
+        <button onclick="exportToPDF()">Xuất PDF</button>
+        <button onclick="exportToExcel()">Xuất Excel</button>
+    </main>
+
+    <!-- Thư viện jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- Thư viện SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+    <script>
+        function exportToPDF() {
+            const doc = new jsPDF();
+            doc.autoTable({ html: '#resultTable' });
+            doc.save('result.pdf');
+        }
+
+        function exportToExcel() {
+            const ws = XLSX.utils.table_to_sheet(document.getElementById('resultTable'));
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            XLSX.writeFile(wb, 'result.xlsx');
+        }
+    </script>
+</body>
+</html>
